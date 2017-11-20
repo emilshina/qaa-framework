@@ -22,7 +22,7 @@ public class MenuTests extends BaseClass {
         log.info("After method of Menu class.");
     }
 
-    @Data(source = "data.json", entity = User[].class)
+    @Data(source = "dataArray.json", entity = User[].class)
     @Test(dataProvider = "getObject", dataProviderClass = DataSuppliers.class)
     public void userCanOpenContactsPage(final User user) {
         log.info("Contacts page was opened by user {}.", user.getUserName());
