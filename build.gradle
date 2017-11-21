@@ -22,8 +22,7 @@ dependencies {
             'com.google.code.gson:gson:2.8.2',
             'org.apache.commons:commons-csv:1.5',
             'commons-io:commons-io:2.6',
-            'org.jooq:joor:0.9.6',
-            'org.aeonbits.owner:owner-java8:1.0.9'
+            'org.jooq:joor:0.9.6'
     )
 }
 

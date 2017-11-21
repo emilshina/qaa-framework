@@ -10,7 +10,7 @@
                     <include name="userShouldNotBeAuthorizedWithInvalidPassword"/>
                 </methods>
             </class>
-            <class name="com.github.emilshina.testcases.MenuTests"/>
+            <class name="com.github.emilshina.testcases.ReaderTests"/>
         </classes>
     </test>
 </suite>

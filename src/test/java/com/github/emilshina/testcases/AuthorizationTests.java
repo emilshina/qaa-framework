@@ -35,7 +35,7 @@ public class AuthorizationTests extends BaseClass {
         log.info("com.github.emilshina.model.User was authorized successfully. With {} ", credentials);
     }
 
-    @Data(source = "dataSingle.json", entity = User.class)
+    @Data(source = "data-single-object.json", entity = User.class)
     @Test(dataProvider = "getObject", dataProviderClass = DataSuppliers.class)
     public void userShouldNotBeAuthorizedWithInvalidLogin(final User user) {
         assertThat(user).hasUsername("jsonUserSingle");
