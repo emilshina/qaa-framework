@@ -1,23 +1,27 @@
 package com.github.emilshina.pages;
 
+import com.github.emilshina.core.Page;
+import com.github.emilshina.core.WaitCondition;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.function.Function;
+import java.util.List;
 
 import static com.github.emilshina.BaseConfig.BASE_CONFIG;
+import static com.github.emilshina.core.WaitCondition.allPresent;
+import static com.github.emilshina.core.WaitCondition.enabled;
 import static com.github.emilshina.listeners.WebDriverListener.getDriver;
-import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
+import static com.github.emilshina.utils.ElementTypeUtils.elementOf;
+import static com.github.emilshina.utils.ElementTypeUtils.streamOf;
 
 /**
  * Basic class for all pages.
  */
-public abstract class BasePage {
+public abstract class BasePage implements Page {
+
     private final WebDriver driver;
     private final WebDriverWait wait;
 
@@ -26,15 +30,35 @@ public abstract class BasePage {
         this.wait = new WebDriverWait(driver, BASE_CONFIG.waitTimeout());
     }
 
-    public void type(final By locator, final String text, Function<By, ExpectedCondition<WebElement>> condition) {
-        waitFor(locator, condition).sendKeys(text + Keys.ENTER);
+    public Page navigateTo(){
+        driver.get(url());
+        return this;
     }
 
-    public void click(final By locator) {
-        waitFor(locator, ExpectedConditions::elementToBeClickable).click();
+    protected void type(final By locator, final String text, final WaitCondition condition) {
+        elementOf(waitFor(locator, condition)).sendKeys(text + Keys.ENTER);
     }
 
-    private WebElement waitFor(final By locator, Function<By, ExpectedCondition<WebElement>> condition) {
-        return wait.until(condition.apply(locator));
+    protected void type(final By locator, final String text) {
+        type(locator, text, enabled);
+    }
+
+    protected void click(final By locator, final WaitCondition condition) {
+        elementOf(waitFor(locator, condition)).click();
+    }
+
+    protected List<String> getTextNodes(final By locator, final WaitCondition condition) {
+        return streamOf(waitFor(locator, condition))
+                .map(WebElement::getText)
+                .toList();
+    }
+
+    protected List<String> getTextNodes(final By locator) {
+        return getTextNodes(locator, allPresent);
+    }
+
+    @SuppressWarnings("unchecked")
+    private <T> T waitFor(final By locator, final WaitCondition condition) {
+        return (T) wait.until(condition.getType().apply(locator));
     }
 }

@@ -3,10 +3,8 @@ package com.github.emilshina.testcases.amazon;
 import com.github.emilshina.pages.MainPage;
 import org.testng.annotations.Test;
 
-import java.util.Objects;
-
-import static com.github.emilshina.BaseConfig.BASE_CONFIG;
-import static com.github.emilshina.listeners.WebDriverListener.getDriver;
+import static com.github.emilshina.utils.PageFactory.at;
+import static com.github.emilshina.utils.PageFactory.open;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 /**
@@ -16,10 +14,11 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 public class MainPageTests {
 
     @Test
-    public void shouldSearchForKeywords() throws InterruptedException {
-        getDriver().get(BASE_CONFIG.url());
+    public void shouldSearchForKeywords() {
+        open(MainPage.class)
+                .searchFor("iphone")
+                .getLinksAmount();
 
-        final int linksAmount = new MainPage().searchFor("iphone").getLinksAmount();
-        assertThat(Objects.equals(linksAmount, 22));
+        assertThat(at(MainPage.class).getLinksAmount()).isGreaterThan(21);
     }
 }
