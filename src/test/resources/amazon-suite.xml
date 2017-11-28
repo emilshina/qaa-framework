@@ -1,7 +1,8 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Smoke suite">
     <test name="Chrome group">
-        <parameter name="browser" value="chrome"/>
+        <parameter name="browserName" value="chrome"/>
+        <parameter name="platform" value="ANY"/>
         <classes>
             <class name="com.github.emilshina.testcases.amazon.MainPageTests"/>
         </classes>

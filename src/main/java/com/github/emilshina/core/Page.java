@@ -8,7 +8,11 @@ import static com.github.emilshina.BaseConfig.BASE_CONFIG;
 
 public interface Page {
 
-    Page navigateTo();
+    Page navigateTo(String url);
+
+    default Page navigateTo() {
+        return navigateTo(url());
+    }
 
     default String url() {
         return BASE_CONFIG.url();

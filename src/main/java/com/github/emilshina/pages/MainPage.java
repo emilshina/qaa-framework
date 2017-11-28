@@ -1,5 +1,6 @@
 package com.github.emilshina.pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 
 import static com.github.emilshina.BaseConfig.BASE_CONFIG;
@@ -13,6 +14,7 @@ public class MainPage extends BasePage {
     private final By inputSearch = By.cssSelector("#twotabsearchtextbox");
     private final By linkSearchResults = By.cssSelector("li[id^='result_']");
 
+    @Step("Search for \"{text}\".")
     public MainPage searchFor(final String text) {
         type(inputSearch, text);
         return this;

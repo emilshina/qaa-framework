@@ -2,6 +2,7 @@ package com.github.emilshina.pages;
 
 import com.github.emilshina.core.Page;
 import com.github.emilshina.core.WaitCondition;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -11,12 +12,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.List;
 import java.util.function.Function;
 
-import static com.github.emilshina.BaseConfig.BASE_CONFIG;
 import static com.github.emilshina.core.WaitCondition.allPresent;
 import static com.github.emilshina.core.WaitCondition.enabled;
-import static com.github.emilshina.listeners.WebDriverListener.getDriver;
 import static com.github.emilshina.utils.ElementTypeUtils.elementOf;
 import static com.github.emilshina.utils.ElementTypeUtils.streamOf;
+import static io.github.sskorol.listeners.BaseListener.getDriverMetaData;
 
 /**
  * Basic class for all pages.
@@ -27,12 +27,13 @@ public abstract class BasePage implements Page {
     private final WebDriverWait wait;
 
     public BasePage() {
-        this.driver = getDriver();
-        this.wait = new WebDriverWait(driver, BASE_CONFIG.waitTimeout());
+        this.driver = getDriverMetaData()._1;
+        this.wait = getDriverMetaData()._2;
     }
 
-    public Page navigateTo() {
-        driver.get(url());
+    @Step("Navigate to {url}")
+    public Page navigateTo(final String url) {
+        driver.get(url);
         return this;
     }
 
