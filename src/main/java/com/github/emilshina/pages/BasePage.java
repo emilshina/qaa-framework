@@ -9,6 +9,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
+import java.util.function.Function;
 
 import static com.github.emilshina.BaseConfig.BASE_CONFIG;
 import static com.github.emilshina.core.WaitCondition.allPresent;
@@ -30,7 +31,7 @@ public abstract class BasePage implements Page {
         this.wait = new WebDriverWait(driver, BASE_CONFIG.waitTimeout());
     }
 
-    public Page navigateTo(){
+    public Page navigateTo() {
         driver.get(url());
         return this;
     }
@@ -58,7 +59,17 @@ public abstract class BasePage implements Page {
     }
 
     @SuppressWarnings("unchecked")
-    private <T> T waitFor(final By locator, final WaitCondition condition) {
-        return (T) wait.until(condition.getType().apply(locator));
+    private <T, U, R, S> S waitFor(final T arg1, final U arg2, final R arg3, final WaitCondition condition) {
+        return (S) wait.until((Function<WebDriver, ?>) condition.getType().apply(arg1, arg2, arg3));
+    }
+
+    @SuppressWarnings("unchecked")
+    private <T, U, R> R waitFor(final T arg1, final U arg2, final WaitCondition condition) {
+        return (R) waitFor(arg1, arg2, "", condition);
+    }
+
+    @SuppressWarnings("unchecked")
+    private <T, U> U waitFor(final T arg1, final WaitCondition condition) {
+        return (U) waitFor(arg1, "", condition);
     }
 }

@@ -1,6 +1,5 @@
 package com.github.emilshina.utils;
 
-import lombok.experimental.UtilityClass;
 import one.util.streamex.StreamEx;
 import org.openqa.selenium.WebElement;
 
@@ -10,8 +9,11 @@ import java.util.List;
  * Class for types conversion of elements.
  */
 
-@UtilityClass
-public class ElementTypeUtils {
+public final class ElementTypeUtils {
+
+    private ElementTypeUtils() {
+        throw new UnsupportedOperationException("Illegal access to private constructor.");
+    }
 
     public static <T> WebElement elementOf(final T element) {
         return (WebElement) element;

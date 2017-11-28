@@ -8,14 +8,18 @@ import static org.joor.Reflect.on;
  * Runtime creation of pages.
  */
 
-public class PageFactory {
+public final class PageFactory {
 
-    public static <T extends Page> T at(Class<T> pageClass) {
+    private PageFactory() {
+        throw new UnsupportedOperationException("Illegal access to private constructor.");
+    }
+
+    public static <T extends Page> T at(final Class<T> pageClass) {
         return on(pageClass).create().get();
     }
 
     @SuppressWarnings("unchecked")
-    public static <T extends Page> T open(Class<T> pageClass) {
+    public static <T extends Page> T open(final Class<T> pageClass) {
         return (T) at(pageClass).navigateTo();
     }
 }
