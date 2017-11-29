@@ -1,6 +1,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Smoke suite">
     <test name="Chrome group">
+        <parameter name="browser" value="chrome"/>
         <classes>
             <class name="com.github.emilshina.testcases.AuthorizationTests">
                 <methods>
@@ -9,7 +10,7 @@
                     <include name="userShouldNotBeAuthorizedWithInvalidPassword"/>
                 </methods>
             </class>
-            <class name="com.github.emilshina.testcases.MenuTests"/>
+            <class name="com.github.emilshina.testcases.ReaderTests"/>
         </classes>
     </test>
 </suite>
