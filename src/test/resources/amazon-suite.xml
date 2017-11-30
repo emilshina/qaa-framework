@@ -2,7 +2,7 @@
 <suite name="Smoke suite">
     <test name="Chrome group">
         <parameter name="browserName" value="chrome"/>
-        <parameter name="platform" value="ANY"/>
+        <parameter name="platform" value="LINUX"/>
         <classes>
             <class name="com.github.emilshina.testcases.amazon.MainPageTests"/>
         </classes>
